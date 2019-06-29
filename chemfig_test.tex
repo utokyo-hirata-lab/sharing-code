@@ -1,0 +1,9 @@
+\documentclass{jsarticle}
+\usepackage[dvipdfmx]{graphicx}
+\usepackage{chemfig}
+\begin{document}
+  \chemfig{CH_3-CH(-[2]CH_3)-CH_2-C(=[:60]O)-[:-60]O-H}
+  \chemfig{CH_3 -[,,,,red,line width=2pt,dash pattern=on 1pt off 2pt] CH_3 }
+  \chemfig{*6(=-*5(-NH-[,,1]=(- CH_2 -[2] CH (-[4] H_2N) -[0] COOH)-)=-=-)}
+  \definesubmol\Me[H_3C]{CH_3} \chemfig{*6((-!\Me)=(-!\Me)-(-!\Me)=(-!\Me)-(-!\Me)=(-!\Me)-)}
+\end{document}
