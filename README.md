@@ -1,6 +1,7 @@
 # sharing-code
 
 ## chemfig_test.tex (あまりにも習得難易度が高いTeXでの化学構造描画)
+<img width="521" alt="スクリーンショット 2019-06-29 11 56 41" src="https://user-images.githubusercontent.com/7247018/60378908-f9364000-9a64-11e9-87fc-7b0536cf034b.png">
 
 ## circle_tree.R
 
