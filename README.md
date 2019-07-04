@@ -10,4 +10,5 @@
 ## ctf.py (Contrast Transfer Function; UTokyo-EPS version)
 ![hf3000](https://user-images.githubusercontent.com/7247018/52612225-32ae4a80-2ecc-11e9-919e-8d7ce903dfe4.png)
 
-
+## bigeleisen.py
+![isotope_fractionation](https://user-images.githubusercontent.com/47913809/60667927-ae258e00-9ea5-11e9-99af-62a2d7ed356e.png)
