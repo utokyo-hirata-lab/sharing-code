@@ -12,5 +12,5 @@ git commit -m 'Update'
 ```
 プッシュする
 ```
-git push origin yourname
+git push origin master
 ```
