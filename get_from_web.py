@@ -49,6 +49,7 @@ for i in range(len(text)):
 
 with open('output.csv', 'w') as f:
     writer = csv.writer(f)
+    writer.writerow(['Speceis','JCM number','URL','Information'])
     for line in url_list:
         ind = url_list.index(line)
         print(Color.CYAN+'Calling... '+Color.END+name_list[ind])
