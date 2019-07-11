@@ -8,16 +8,26 @@ import sys
 import time
 import os
 import urllib
+import csv
+import pprint
 
-keyword = input('search key : ') #キーワードを入力する
-#keyword = 'hydrothermal' 
-url = 'https://www.jcm.riken.jp/cgi-bin/jcm/jcm_kojin?ANY=' + keyword #URLをつくる
-html = urllib.request.urlopen(url) #URLからhtmlを取得する 
-soup = BeautifulSoup(html, 'html.parser') 
+#keyword = input('search key : ')
+keyword = 'hydrothermal'
+url = 'https://www.jcm.riken.jp/cgi-bin/jcm/jcm_kojin?ANY=' + keyword
+parent = url.split('/')[0]+'//'+url.split('/')[2]
+html = urllib.request.urlopen(url)
+soup = BeautifulSoup(html, 'html.parser')
 
-a = soup.find_all("a") #aタグ(urlが含まれる)のリストを取得
+a = soup.find_all("a")
 #for script in soup(["script", "style"]):
 #    script.decompose()
+url_list = []
 for tag in a:
-    if 'JCM=' in tag.get('href'): #URLにJCM=が含まれるものを取得
-        print(tag.get('href'))
+    called = tag.get('href')
+    if 'JCM=' in called:
+        url_list.append(parent+called)
+print(len(url_list))
+with open('output.csv', 'w') as f:
+    writer = csv.writer(f)
+    for line in url_list:
+        writer.writerow([line.split('=')[1],line])
