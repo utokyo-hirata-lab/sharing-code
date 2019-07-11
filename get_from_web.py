@@ -11,6 +11,10 @@ import urllib
 import csv
 import pprint
 
+class Color:
+    CYAN      = '\033[36m'
+    END       = '\033[0m'
+
 keyword = input('search key : ')
 #keyword = 'hydrothermal'
 url = 'https://www.jcm.riken.jp/cgi-bin/jcm/jcm_kojin?ANY=' + keyword
@@ -27,15 +31,26 @@ def call_temp(url):
             print(url,inf)
             return inf
 
-a = soup.find_all("a")
+a = soup.find_all('a')
 url_list = []
+
 for tag in a:
     called = tag.get('href')
     if 'JCM=' in called:
         url_list.append(parent+called)
-print(len(url_list))
+    called = tag.get('href')
+    sp = tag.get('')
+
+text = soup.get_text().splitlines()
+name_list = []
+for i in range(len(text)):
+    if 'JCM number' in text[i]:
+        name_list.append(text[i-1])
+
 with open('output.csv', 'w') as f:
     writer = csv.writer(f)
     for line in url_list:
+        ind = url_list.index(line)
+        print(Color.CYAN+'Calling... '+Color.END+name_list[ind])
         tmp = call_temp(line)
-        writer.writerow([line.split('=')[1],line,tmp])
+        writer.writerow([name_list[ind],line.split('=')[1],line,tmp])
