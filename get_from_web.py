@@ -11,48 +11,64 @@ import urllib
 import csv
 import pprint
 
-class Color:
-    CYAN      = '\033[36m'
-    END       = '\033[0m'
+"""
+簡単な使い方
+% python get_from_web.py
+search key : hot,spring (複数キーワードで検索するときはカンマで区切る)
 
-keyword = input('search key : ')
-#keyword = 'hydrothermal'
-url = 'https://www.jcm.riken.jp/cgi-bin/jcm/jcm_kojin?ANY=' + keyword
+output.csvが存在しない場合 : 新規作成する
+output.csvが存在する場合 : 追記
+"""
+
+class Color:
+    CYAN  = '\033[36m'
+    GREEN = '\033[32m'
+    END   = '\033[0m'
+
+keyword = input('search key : ') #検索キーワードを入力 (複数キーワードはカンマで)
+keyword = keyword.replace(',','+') #検索できる形に変換
+url = 'https://www.jcm.riken.jp/cgi-bin/jcm/jcm_kojin?ANY=' + keyword #URLをつくる
 parent = url.split('/')[0]+'//'+url.split('/')[2]
-html = urllib.request.urlopen(url)
+html = urllib.request.urlopen(url) #指定したURLからhtmlをもってくる
 soup = BeautifulSoup(html, 'html.parser')
 
-def call_temp(url):
+def call_temp(url): #URLから温度の情報をもってくる関数を定義
     html = urllib.request.urlopen(url)
     data = BeautifulSoup(html, 'html.parser')
-    text = data.get_text().splitlines()
+    text = data.get_text().splitlines() #テキストデータに変換
     for inf in text:
-        if 'Temperature:' in inf:
+        if 'Temperature:' in inf: #Temperatureが存在する部分を抜き出す
             print(url,inf)
             return inf
 
-a = soup.find_all('a')
+a = soup.find_all('a') #<a>タグで囲まれた部分の中身(JMC numberのURLが含まれる)を抜き出す
 url_list = []
-
 for tag in a:
-    called = tag.get('href')
+    called = tag.get('href') #リンク先のURLのリストをもってくる
     if 'JCM=' in called:
         url_list.append(parent+called)
-    called = tag.get('href')
-    sp = tag.get('')
 
 text = soup.get_text().splitlines()
 name_list = []
 for i in range(len(text)):
     if 'JCM number' in text[i]:
-        name_list.append(text[i-1])
+        name_list.append(text[i-1]) #賢いやり方かは怪しいが。
 
-output_name = keyword + '.csv'
-with open(output_name, 'w') as f:
-    writer = csv.writer(f)
-    writer.writerow(['Speceis','JCM number','URL','Information'])
+with open('output.csv', 'a') as f: #'a'を指定すると追記できる (ファイルがない場合は新規)
+    k1 = 'Keyword'
+    k2 = 'Speceis'
+    k3 = 'JCM number'
+    k4 = 'URL'
+    k5 =  'Information'
+    filecheck = 0
+    with open('output.csv', 'r') as c:
+        if len([i for i in c.readlines()]) > 0:
+            filecheck = 1
+    fieldnames = [k1,k2,k3,k4,k5]
+    writer = csv.DictWriter(f, fieldnames=fieldnames)
+    if filecheck == 0: writer.writeheader() #fileが空のときだけheaderを書き込む
     for line in url_list:
         ind = url_list.index(line)
-        print(Color.CYAN+'Calling... '+Color.END+name_list[ind])
+        print(Color.CYAN+'Calling... '+Color.GREEN+name_list[ind]+Color.END)
         tmp = call_temp(line)
-        writer.writerow([name_list[ind],line.split('=')[1],line,tmp])
+        writer.writerow({k1:keyword,k2:name_list[ind],k3:line.split('=')[1],k4:line,k5:tmp})
