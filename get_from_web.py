@@ -9,16 +9,15 @@ import time
 import os
 import urllib
 
-#keyword = input('search key : ')
-keyword = 'hydrothermal'
-url = 'https://www.jcm.riken.jp/cgi-bin/jcm/jcm_kojin?ANY=' + keyword
-html = urllib.request.urlopen(url)
-soup = BeautifulSoup(html, 'html.parser')
+keyword = input('search key : ') #キーワードを入力する
+#keyword = 'hydrothermal' 
+url = 'https://www.jcm.riken.jp/cgi-bin/jcm/jcm_kojin?ANY=' + keyword #URLをつくる
+html = urllib.request.urlopen(url) #URLからhtmlを取得する 
+soup = BeautifulSoup(html, 'html.parser') 
 
-a = soup.find_all("a")
+a = soup.find_all("a") #aタグ(urlが含まれる)のリストを取得
 #for script in soup(["script", "style"]):
 #    script.decompose()
 for tag in a:
-    called = 
-    if 'JCM=' in tag.get('href'):
+    if 'JCM=' in tag.get('href'): #URLにJCM=が含まれるものを取得
         print(tag.get('href'))
