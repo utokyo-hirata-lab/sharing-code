@@ -47,7 +47,8 @@ for i in range(len(text)):
     if 'JCM number' in text[i]:
         name_list.append(text[i-1])
 
-with open('output.csv', 'w') as f:
+output_name = keyword + '.csv'
+with open(output_name, 'w') as f:
     writer = csv.writer(f)
     writer.writerow(['Speceis','JCM number','URL','Information'])
     for line in url_list:
