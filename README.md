@@ -12,3 +12,6 @@
 
 ## bigeleisen.py
 ![isotope_fractionation](https://user-images.githubusercontent.com/47913809/60667927-ae258e00-9ea5-11e9-99af-62a2d7ed356e.png)
+
+## bib2csv.py
+フォルダ内のpdfファイルから情報を抽出してcsvに出力します (エラー多め)
