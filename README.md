@@ -8,6 +8,10 @@
 - dl_mineral_convert (画像変換後の画像が格納されます)
 - dl_mineral_group (カテゴライズされた画像をグルーピングした結果を保存します)
 
+```
+python categorize.py
+```
+
 ## bib2csv.py
 フォルダ内のpdfファイルから情報を抽出してcsvに出力します (エラー多め)
 
