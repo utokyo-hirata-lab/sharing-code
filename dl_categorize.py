@@ -20,6 +20,15 @@ class Color:
     INVISIBLE = '\033[08m'
     REVERCE   = '\033[07m'
 
+if not os.path.exists('dl_mineral_origin'):
+    os.system('mkdir dl_mineral_origin');print(Color.GREEN+'mkdir dl_mineral_origin')
+if not os.path.exists('dl_mineral_convert'):
+    os.system('mkdir dl_mineral_convert');print(Color.GREEN+'mkdir dl_mineral_convert')
+if not os.path.exists('dl_mineral_group'):
+    os.system('mkdir dl_mineral_group');print(Color.GREEN+'mkdir dl_mineral_group')
+os.system('mv *.jpg dl_mineral_origin')
+os.system('rm -rf dl_mineral_origin/.DS_Store.jpg')
+
 for path in os.listdir('dl_mineral_origin'):
     path_c = path.replace('.jpg','').replace('.png','').replace('.gif','').replace('.webp','').replace('.jpeg','')+'.jpg'
     os.system('mv dl_mineral_origin/'+path+' dl_mineral_origin/'+path_c)
