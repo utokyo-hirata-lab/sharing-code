@@ -1,5 +1,13 @@
 # sharing-code
 
+## categorize.py
+ディープラーニングを用いて鉱物をカテゴライズします。
+
+以下のディレクトリを用意してください
+- dl_mineral_origin (元の画像ファイルは全てここに格納しておきます)
+- dl_mineral_convert (画像変換後の画像が格納されます)
+- dl_mineral_group (カテゴライズされた画像をグルーピングした結果を保存します)
+
 ## bib2csv.py
 フォルダ内のpdfファイルから情報を抽出してcsvに出力します (エラー多め)
 
