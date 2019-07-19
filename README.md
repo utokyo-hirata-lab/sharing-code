@@ -1,6 +1,9 @@
 # sharing-code
 
-## categorize.py
+## cnn.py (constructing...)
+畳み込みニューラルネットワークで画像認識します。
+
+## dl_categorize.py
 ディープラーニングを用いて鉱物をカテゴライズします。
 
 以下のディレクトリを用意してください
